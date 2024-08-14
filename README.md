@@ -6,7 +6,7 @@ Index -
 Exp 1 : Image Format and Manipulation in Python  
 Exp 2 : Image Negative and Thresholding Techniques  
 Exp 3 : Bit Plane Slicing for Image Processing  
-Exp 4 : Histogram Equalization and Image Enhancement
+Exp 4 : Histogram Equalization and Image Enhancement  
 Exp 5 :  
 Exp 6 : Image Resizing and Binarization Using OpenCV  
 Exp 7 :  
