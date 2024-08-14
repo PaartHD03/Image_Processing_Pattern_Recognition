@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 8 IPPR</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        code { background-color: #f4f4f4; padding: 5px; display: block; white-space: pre; border: 1px solid #ddd; margin: 20px 0; }
+        h1, h2 { color: #333; }
+    </style>
+</head>
+<body>
+<h1>Experiment 8 - Morphological Operations (IPPR)</h1>
+<h2>Code:</h2>
+<code>
+import numpy as np<br>
+from PIL import Image<br>
+import requests<br>
+from io import BytesIO<br>
+import matplotlib.pyplot as plt<br><br>
+def load_image(file_path, threshold=128, size=None):<br>
+    img = Image.open(file_path).convert('L')  # Convert to grayscale<br>
+    if size:<br>
+        img = img.resize(size)<br>
+    img_np = np.array(img)<br>
+    img_binary = np.where(img_np > threshold, 1, 0)  # Convert to binary<br>
+    return img_binary<br><br>
+def display_image(image, title="Image"):<br>
+    plt.figure(figsize=(5, 5))<br>
+    plt.imshow(image, cmap='gray', interpolation='nearest')<br>
+    plt.title(title)<br>
+    plt.axis('off')<br>
+    plt.show()<br><br>
+def erosion(image, kernel):<br>
+    kernel_height, kernel_width = kernel.shape<br>
+    image_height, image_width = image.shape<br>
+    output = np.zeros_like(image)<br>
+    pad_height, pad_width = kernel_height // 2, kernel_width // 2<br>
+    padded_image = np.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant', constant_values=0)<br>
+    for i in range(image_height):<br>
+        for j in range(image_width):<br>
+            if np.all(kernel == padded_image[i:i+kernel_height, j:j+kernel_width] * kernel):<br>
+                output[i, j] = 1<br>
+    return output<br><br>
+def dilation(image, kernel):<br>
+    kernel_height, kernel_width = kernel.shape<br>
+    image_height, image_width = image.shape<br>
+    output = np.zeros_like(image)<br>
+    pad_height, pad_width = kernel_height // 2, kernel_width // 2<br>
+    padded_image = np.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant', constant_values=0)<br>
+    for i in range(image_height):<br>
+        for j in range(image_width):<br>
+            if np.any(kernel == padded_image[i:i+kernel_height, j:j+kernel_width] * kernel):<br>
+                output[i, j] = 1<br>
+    return output<br><br>
+# Load and display the original binary image<br>
+binary_image = load_image('NAMEPLAT.png', threshold=128, size=(256, 256))<br>
+display_image(binary_image, "Original Binary Image")<br><br>
+# Define a simple kernel for morphological operations<br>
+kernel = np.ones((3, 3), dtype=np.uint8)<br><br>
+# Apply erosion<br>
+eroded_image = erosion(binary_image, kernel)<br>
+display_image(eroded_image, "Eroded Image")<br><br>
+# Apply dilation<br>
+dilated_image = dilation(binary_image, kernel)<br>
+display_image(dilated_image, "Dilated Image")
+</code>
+</body>
+</html>

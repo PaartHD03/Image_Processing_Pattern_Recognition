@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 7 IPPR</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        code { background-color: #f4f4f4; padding: 5px; display: block; white-space: pre; border: 1px solid #ddd; margin: 20px 0; }
+        h1, h2 { color: #333; }
+    </style>
+</head>
+<body>
+<h1>Experiment 7 - Image Segmentation (IPPR)</h1>
+<h2>Code:</h2>
+<code>
+import cv2<br>
+import numpy as np<br><br>
+# Load the image<br>
+image = cv2.imread("uwp3710233.jpeg")<br><br>
+# Convert image to floating point<br>
+pixels = np.float32(image.reshape((-1, 3)))<br><br>
+# Define criteria and apply k-means clustering<br>
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)<br>
+k = 2<br>
+_, labels, centers = cv2.kmeans(pixels, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)<br><br>
+# Convert back to uint8<br>
+centers = np.uint8(centers)<br>
+segmented_image = centers[labels.flatten()]<br><br>
+# Reshape the segmented image to match the original image shape<br>
+segmented_image = segmented_image.reshape(image.shape)<br><br>
+# Display the original and segmented images<br>
+cv2.imshow("Original Image", image)<br>
+cv2.imshow("Segmented Image", segmented_image)<br>
+cv2.waitKey(0)<br>
+cv2.destroyAllWindows()
+</code>
+<h2>Output:</h2>
+<p>Image Format: Portable Network Graphic (PNG)<br>
+Bits Per Pixel: 32<br>
+Color: Truecolour with alpha<br>
+Dimensions: 1093 x 658<br>
+Interlaced: Yes<br>
+XResolution: 144<br>
+YResolution: 144</p>
+</body>
+</html>
