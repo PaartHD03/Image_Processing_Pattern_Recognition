@@ -3,12 +3,12 @@
 These are my Image processing and pattern recognition lab projects during 6th sem.  
 
 Index -  
-Exp 1 :  
-Exp 2 :  
-Exp 3 :  
-Exp 4 :  
+Exp 1 : Image Format and Manipulation in Python  
+Exp 2 : Image Negative and Thresholding Techniques  
+Exp 3 : Bit Plane Slicing for Image Processing  
+Exp 4 : Histogram Equalization and Image Enhancement
 Exp 5 :  
-Exp 6 :  
+Exp 6 : Image Resizing and Binarization Using OpenCV  
 Exp 7 :  
 Exp 8 :  
 Exp 9 :  
